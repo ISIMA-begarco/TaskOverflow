@@ -21,7 +21,7 @@ before_install:
 
 before_script:
   - sleep 15
-  - mongo mydb_test --eval 'db.addUser("app", "app");'
+  - travis_retry "mongo task_overflow --eval 'db.addUser(\"admin\", \"admin\");'; sleep 3"
   
 script:
  - echo "Rien à exécuter voir .travis.yml"
