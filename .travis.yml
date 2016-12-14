@@ -1,8 +1,8 @@
 language: groovy
 
 jdk:
-  - openjdk8
-  - oraclejdk7
+  - openjdk7
+  - oraclejdk8
 
 addons:
   apt:
