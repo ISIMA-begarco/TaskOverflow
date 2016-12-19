@@ -35,12 +35,13 @@ before_install:
  - tar xfz mongodb-linux-x86_64-amazon-$MONGODB_VERSION.tgz
  - export PATH=`pwd`/mongodb-linux-x86_64-amazon-$MONGODB_VERSION/bin:$PATH
  - mkdir -p data/db
- - mongod --dbpath=data/db &
  - sleep 15
+ - mongod --dbpath=data/db &
+ - sleep 21
 
 before_script:
   - sleep 15
-  - travis_retry "mongo task_overflow --eval 'db.addUser(\"admin\", \"admin\");'; sleep 3"
+  - mongo task_overflow --eval 'db.addUser(\"admin\", \"admin\");'
   
 script:
  - echo "Rien à exécuter voir .travis.yml"
