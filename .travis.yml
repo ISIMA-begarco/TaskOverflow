@@ -32,7 +32,6 @@ before_install:
  - grails -version
 #mongodb installation
  - mkdir -p data/db
- - sleep 15
  - mongod --dbpath=data/db &
  - sleep 21
 
