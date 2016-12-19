@@ -10,8 +10,17 @@ env:
  global:
   - MONGODB_VERSION=3.4.0
 
+addons:
+ apt:
+  sources:
+   - mongodb-upstart
+   - mongodb-3.4-precise
+  packages:
+   - mongodb-org-server
+   - mongodb-org-shell
+
 services:
-  - mongodb
+ - mongodb
 
 before_install:
 #grails installation
