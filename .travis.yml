@@ -17,6 +17,8 @@ addons:
    - mongodb-3.4-precise
   packages:
    - mongodb-org
+   - libssl1.0.0
+   - libssl-dev
 
 services:
  - mongodb
