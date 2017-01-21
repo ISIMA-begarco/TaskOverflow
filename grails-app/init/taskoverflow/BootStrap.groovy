@@ -1,5 +1,6 @@
 package taskoverflow
 
+import org.springframework.context.MessageSource
 import ovh.garcon.tasko.*
 
 class BootStrap {
@@ -7,6 +8,11 @@ class BootStrap {
     def springSecurityService
 
     def init = { servletContext ->
+
+        //definition of badges
+        def badgeSuperman = new Badge(label: "Superman", description: "badges.superman.desc", value: 10, users: []).save(failOnError: true)
+        def badgeHercule = new Badge(label: "Hercule", description: "badges.hercule.desc", value: 4, users: []).save(failOnError: true)
+        def badgeOne = new Badge(label: "N°1", description: "badges.nbone.desc", value: 4, users: []).save(failOnError: true)
 
         // security roles definition
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
@@ -16,14 +22,17 @@ class BootStrap {
         def adminUser = User.findByUsername('admin') ?: new User(
                 username: 'admin',
                 password: 'admin',
+                badges: [badgeHercule],
                 enabled: true).save(failOnError: true)
         def bob = User.findByUsername('bob') ?: new User(
                 username: 'bob',
                 password: 'bob',
+                badges: [badgeOne],
                 enabled: true).save(failOnError: true)
         def alice = User.findByUsername('alice') ?: new User(
                 username: 'alice',
                 password: 'aliceglisse',
+                badges: [badgeOne],
                 enabled: true).save(failOnError: true)
 
         // add of users
@@ -61,11 +70,6 @@ class BootStrap {
         def tag5 = new Tag(label: "Cinema").save(failOnError: true)
         def tag6 = new Tag(label: "Rugby").save(failOnError: true)
 
-        //definition of badges
-        def badgeSuperman = new Badge(label: "Superman", description: "100 points", value: 10).save(failOnError: true)
-        def badgeHercule = new Badge(label: "Hercule", description: "50 points", value: 4).save(failOnError: true)
-        def badgeOne = new Badge(label: "N°1", description: "1 message", value: 4).save(failOnError: true)
-
         // definition of questions
         def qm1 = new QuestionMessage(
                 user: bob,
@@ -86,17 +90,20 @@ class BootStrap {
                 title: "Create a OOP language",
                 question: qm1,
                 tags: [tag1, tag2, tag3],
+                user: bob,
                 isSolved: false
         ).save(failOnError: true)
         def question2 = new Question(
                 title: "Where is Alice?",
                 question: qm2,
+                user: bob,
                 isSolved: true
         ).save(failOnError: true)
         def question3 = new Question(
                 title: "How to do a big bang?",
-                question: qm1,
+                question: qm3,
                 tags: [tag1, tag4],
+                user: alice,
                 isSolved: false
         ).save(failOnError: true)
 

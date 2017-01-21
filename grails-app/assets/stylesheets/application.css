@@ -13,3 +13,17 @@
 *= require mobile
 *= require_self
 */
+
+.page-title {
+    color: #D40000;
+    font-size: x-large;
+}
+
+.my-image {
+    width: auto;
+    height: auto;
+}
+
+.my-list {
+    list-style:none;
+}

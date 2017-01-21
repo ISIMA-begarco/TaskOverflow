@@ -1,6 +1,7 @@
 package ovh.garcon.tasko
 
 import static org.springframework.http.HttpStatus.*
+import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
@@ -17,6 +18,7 @@ class QuestionController {
         respond question
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def create() {
         respond new Question(params)
     }
