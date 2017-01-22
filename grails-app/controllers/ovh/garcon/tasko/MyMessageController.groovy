@@ -10,7 +10,7 @@ class MyMessageController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond MyMessage.list(params), model:[myMessageCount: MyMessage.count()]
+        respond MyMessage.list(params).sort{it.value}, model:[myMessageCount: MyMessage.count()]
     }
 
     def show(MyMessage myMessage) {

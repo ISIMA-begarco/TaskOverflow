@@ -19,7 +19,8 @@ class User implements Serializable {
 	boolean passwordExpired
 
 	static hasMany = [messages: MyMessage, badges: Badge, questions: Question]
-	static hasOne = [profil: Profile]
+    Set<Question> questions
+    static hasOne = [profil: Profile]
 
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this)*.role
@@ -39,6 +40,21 @@ class User implements Serializable {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
+	Integer getReputation() {
+		Integer rep = 0
+		for(MyMessage m : messages)
+			rep += m.getValue()
+		for(Question m : questions)
+			rep += m.getValue()
+		for(Badge m : badges)
+			rep += m.getValue()
+		return rep
+	}
+
+    Set<Question> getQuestions() {
+        return questions?.sort{it.getValue()}?.reverse(true)
+    }
+
 	static transients = ['springSecurityService']
 
 	static constraints = {
@@ -52,5 +68,6 @@ class User implements Serializable {
 
 	static mapping = {
 		password column: '`password`'
+        messages sort: "value", order: "desc"
 	}
 }

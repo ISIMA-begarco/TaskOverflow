@@ -42,7 +42,7 @@
                         <li><g:link controller="login"><g:message code="home.nav.login"/></g:link></li>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
-                        <li><g:link controller="profile"><sec:loggedInUserInfo field="username"/></g:link></li>
+                        <li><g:link controller="user" action="show" id="${sec.loggedInUserInfo(field: 'id')}"><sec:loggedInUserInfo field="username"/></g:link></li>
                     </sec:ifLoggedIn>
                     <sec:ifLoggedIn>
                         <li><g:link controller="logout"><g:message code="home.nav.logout"/></g:link></li>

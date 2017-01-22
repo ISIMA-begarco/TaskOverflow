@@ -5,6 +5,7 @@ class Profile {
     String firstname
     String lastname
     String email
+    String image
     
     static belongsTo = [user: User]
 
@@ -13,6 +14,14 @@ class Profile {
         firstname nullable: true
         lastname nullable: true
         email nullable: true
+        image nullable: true
+    }
+
+    String getImage() {
+        if(image!=null)
+            return image
+        else
+            return "0"
     }
 
 }

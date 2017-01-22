@@ -16,9 +16,6 @@ class Question {
 
 	int getValue() {
 		int res = question.getValue()
-		answers.each { c ->
-			res += c.value
-		}
 		return res
 	}
 }

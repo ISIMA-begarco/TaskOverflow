@@ -7,13 +7,8 @@
     </head>
     <body class="container-fluid">
         <h1 class="col-sm-offset-2 page-title"><g:message code="home.nav.badges"/></h1>
-        <tr/>
         <g:each in="${ badgeList }" var="b">
-            <tr class="row">
-                <td>
-                    <g:render template="/badge/displayBadge" model="['b':b]" />
-                </td>
-            </tr>
+            <g:render template="/badge/displayBadge" model="['b':b]" />
         </g:each>
     </body>
 </html>

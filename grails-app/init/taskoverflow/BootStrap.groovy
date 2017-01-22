@@ -22,7 +22,7 @@ class BootStrap {
         def adminUser = User.findByUsername('admin') ?: new User(
                 username: 'admin',
                 password: 'admin',
-                badges: [badgeHercule],
+                badges: [badgeHercule, badgeOne],
                 enabled: true).save(failOnError: true)
         def bob = User.findByUsername('bob') ?: new User(
                 username: 'bob',
@@ -54,7 +54,8 @@ class BootStrap {
                 email: "admin@taskoverflow.com"
         ).save(failOnError: true)
         def profileBob = new Profile(
-                user: bob
+                user: bob,
+                image: "https://www.alpineclub.ch/media/image/d4/59/84/600219-1.jpg"
         ).save(failOnError: true)
         def profileAlice = new Profile(
                 user: alice,

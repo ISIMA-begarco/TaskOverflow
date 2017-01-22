@@ -6,12 +6,7 @@
         <title><g:message code="default.show.label" args="[entityName]" /></title>
     </head>
     <body class="container-fluid">
-    <h1 class="col-sm-offset-2 page-title"><g:link controller="badge" action="index"><g:message code="home.nav.badges"/></g:link> > ${this.badge.label}</h1>
-        <tr/>
-            <tr class="row">
-                <td>
+        <h1 class="col-sm-offset-2 page-title"><g:link controller="badge" action="index"><g:message code="home.nav.badges"/></g:link> > ${this.badge.label}</h1>
                     <g:render template="/badge/displayBadge" model="['b':this.badge]" />
-                </td>
-            </tr>
     </body>
 </html>
