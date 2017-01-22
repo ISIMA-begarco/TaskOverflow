@@ -42,3 +42,25 @@
 .my-list {
     list-style:none;
 }
+
+.gold {
+    background-color: gold;
+    color: #FF0000;
+    border: 1px solid #EEE;
+}
+
+.questionStyle {
+    background-color: #ffff88;
+}
+
+.answerStyle {
+    background-color: #eeeeff;
+}
+
+.badgeSize {
+    height: 180px;
+}
+
+.coms {
+    border-top: 2px dotted;
+}

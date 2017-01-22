@@ -130,6 +130,26 @@ class BootStrap {
                 date: new Date(),
                 value: 3
         ).save(failOnError: true)
+
+        def coms = [
+                new ComMessage(
+                        user: alice,
+                        content: "Already said...",
+                        date: new Date()),
+                new ComMessage(
+                        user: adminUser,
+                        content: "I know.",
+                        date: new Date()),
+        ]
+
+        def answer4 = new AnswerMessage(
+                user: adminUser,
+                question: question1,
+                content: "Perpetual sincerity out suspected necessary one but provision satisfied. Respect nothing use set waiting pursuit nay you looking. If on prevailed concluded ye abilities. Address say you new but minuter greater. Do denied agreed in innate. Can and middletons thoroughly themselves him. Tolerably sportsmen belonging in september no am immediate newspaper. Theirs expect dinner it pretty indeed having no of. Principle september she conveying did eat may extensive.",
+                date: new Date(),
+                value: 1,
+                coms: coms
+        ).save(failOnError: true)
     }
     def destroy = {
     }

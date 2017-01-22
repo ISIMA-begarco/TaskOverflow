@@ -17,7 +17,7 @@
             <h1 class="col-sm-offset-2 page-title"><g:message code="other.mysuccess"/></h1>
             <div class="col-xs-offset-1 col-xs-10">
                 <div class="col-sm-4 col-xs-12">
-                    <div class="jumbotron">
+                    <div class="jumbotron badgeSize">
                         <div class="row">
                             <div class="text-center col-xs-12 page-title">
                                 <g:message code="other.reputation"/>
@@ -40,10 +40,10 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th><g:message code="message.solved"/></th>
-                        <th><g:message code="message.value"/></th>
-                        <th><g:message code="message.question"/></th>
-                        <th><g:message code="message.date"/></th>
+                        <th class="text-center"><g:message code="message.solved"/></th>
+                        <th class="text-center"><g:message code="message.value"/></th>
+                        <th class="text-center"><g:message code="message.question"/></th>
+                        <th class="text-center"><g:message code="message.date"/></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -60,9 +60,9 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th><g:message code="message.value"/></th>
-                        <th><g:message code="message.content"/></th>
-                        <th><g:message code="message.date"/></th>
+                        <th class="text-center"><g:message code="message.value"/></th>
+                        <th class="text-center"><g:message code="message.content"/></th>
+                        <th class="text-center"><g:message code="message.date"/></th>
                     </tr>
                     </thead>
                     <tbody>

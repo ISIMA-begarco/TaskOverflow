@@ -8,4 +8,8 @@ class AnswerMessage extends MyMessage {
     static constraints = {
         coms nullable: true
     }
+
+    static mapping = {
+        coms sort: "date"
+    }
 }

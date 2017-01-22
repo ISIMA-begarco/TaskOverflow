@@ -1,6 +1,8 @@
 
 
 // Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'ovh.garcon.tasko.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'ovh.garcon.tasko.UserRole'
 grails.plugin.springsecurity.authority.className = 'ovh.garcon.tasko.Role'
@@ -13,6 +15,8 @@ grails.plugin.springsecurity.controllerAnnotations.staticRules = [
 	[pattern: '/badge/**',       access: ['permitAll']],
 	[pattern: '/profile/**',     access: ['permitAll']],
 	[pattern: '/logout/**',      access: ['permitAll']],
+	[pattern: '/comMessage/**',      access: ['permitAll']],
+	[pattern: '/answerMessage/**',      access: ['permitAll']],
 	[pattern: '/user/**',        access: ['permitAll']],
 	[pattern: '/index.gsp',      access: ['permitAll']],
 	[pattern: '/shutdown',       access: ['permitAll']],

@@ -35,7 +35,9 @@ class UserController {
             return
         }
 
-        user.save flush:true
+        def profile = new Profile(firstname: "", lastname: "", email: "", image: "")
+        user.setProfil(profile)
+        user.save(flush:true)
 
         request.withFormat {
             form multipartForm {

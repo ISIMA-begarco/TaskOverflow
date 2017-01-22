@@ -7,6 +7,7 @@
         <g:layoutTitle default="TaskOverflow"/>
     </title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <asset:link rel="icon" href="favicon.ico" type="image/x-ico" />
 
     <asset:stylesheet src="application.css"/>
@@ -37,15 +38,12 @@
                     <li><g:link controller="user"><g:message code="home.nav.users"/></g:link></li>
                     <sec:ifNotLoggedIn>
                         <li><g:link controller="user" action="create"><g:message code="home.nav.signin"/></g:link></li>
-                    </sec:ifNotLoggedIn>
-                    <sec:ifNotLoggedIn>
                         <li><g:link controller="login"><g:message code="home.nav.login"/></g:link></li>
                     </sec:ifNotLoggedIn>
                     <sec:ifLoggedIn>
                         <li><g:link controller="user" action="show" id="${sec.loggedInUserInfo(field: 'id')}"><sec:loggedInUserInfo field="username"/></g:link></li>
-                    </sec:ifLoggedIn>
-                    <sec:ifLoggedIn>
                         <li><g:link controller="logout"><g:message code="home.nav.logout"/></g:link></li>
+                        <li class="gold"><g:link controller="question" action="create"><g:message code="home.nav.ask"/></g:link></li>
                     </sec:ifLoggedIn>
                 </ul>
             </div>
