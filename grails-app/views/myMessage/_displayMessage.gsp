@@ -16,7 +16,7 @@
             </div>
             <div class="col-xs-9 text-justify">${a.content}</div>
             <sec:ifLoggedIn>
-                <div class="col-xs-12 text-justify coms"><g:message code="message.addcom"/></div>
+                <div class="col-xs-12 text-justify coms"><g:link controller="comMessage" action="create" params="['questionId':a.question.id,'messageId':a.id]"><g:message code="message.addcom"/></g:link></div>
             </sec:ifLoggedIn>
             <g:each in="${a.coms}" var="c">
                 <g:render template="/comMessage/displayCom" model="['com':c]"/>
