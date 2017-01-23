@@ -1,22 +1,21 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
+/**
+ * Manage message for questions
+ */
 @Transactional(readOnly = true)
 class QuestionMessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-/**
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond QuestionMessage.list(params), model:[questionMessageCount: QuestionMessage.count()]
-    }
 
-    def show(QuestionMessage questionMessage) {
-        respond questionMessage
-    }
-**/
     def create() {
         respond new QuestionMessage(params)
     }

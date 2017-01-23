@@ -1,10 +1,30 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
+/**
+ * Complementary information on a user
+ */
 class Profile {
-    
+
+    /**
+     * firstname of the user
+     */
     String firstname
+    /**
+     * Lastname of the user
+     */
     String lastname
+    /**
+     * Email of the user
+     */
     String email
+    /**
+     * URL of the user's image
+     */
     String image
     
     static belongsTo = [user: User]

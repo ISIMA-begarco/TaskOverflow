@@ -3,7 +3,7 @@
     <head>
         <meta name="layout" content="main" />
         <g:set var="entityName" value="${message(code: 'question.label', default: 'Question')}" />
-        <title><g:message code="home.nav.questions" /></title>
+        <title>TaskOverflow</title>
     </head>
     <body class="container-fluid">
         <section class="row">

@@ -69,3 +69,8 @@
     display: inline-block;
     text-decoration: none;
 }
+
+.small-profil-image {
+    height: 2em;
+    width: auto;
+}

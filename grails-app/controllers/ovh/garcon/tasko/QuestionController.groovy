@@ -1,11 +1,25 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
 import static org.springframework.http.HttpStatus.*
 import grails.plugin.springsecurity.annotation.Secured
 import grails.transaction.Transactional
+import ovh.garcon.tasko.BadgatorService
 
+/**
+ * Manage questions
+ */
 @Transactional(readOnly = true)
 class QuestionController {
+
+    /**
+     * Gamification service
+     */
+    def badgatorService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
@@ -41,6 +55,8 @@ class QuestionController {
                 tags: question.tags,
                 title: question.title
         ).save(flush:true)
+
+        badgatorService.serviceMethod(QUE.getUserId()) // check badges
 
         if (QUE == null) {
             transactionStatus.setRollbackOnly()

@@ -1,31 +1,32 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import ovh.garcon.tasko.BadgatorService
 
+/**
+ * Manage generic messages
+ */
 @Transactional(readOnly = true)
 class MyMessageController {
+    /**
+     * Gamification service
+     */
+    def badgatorService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-/**
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond MyMessage.list(params).sort{it.value}, model:[myMessageCount: MyMessage.count()]
-    }
 
-    def show(MyMessage myMessage) {
-        respond myMessage
-    }
-
-    def create() {
-        respond new MyMessage(params)
-    }
-**/
     @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     @Transactional
     def save(MyMessage myMessage) {
+
         if (myMessage == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -39,6 +40,8 @@ class MyMessageController {
         }
 
         myMessage.save flush:true
+
+        badgatorService.serviceMethod(myMessage.getUserId()) // check badges
 
         request.withFormat {
             form multipartForm {
@@ -70,27 +73,7 @@ class MyMessageController {
 
         myMessage.save flush:true
     }
-/**
-    @Transactional
-    def delete(MyMessage myMessage) {
 
-        if (myMessage == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        myMessage.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'myMessage.label', default: 'MyMessage'), myMessage.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
-**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -102,7 +85,7 @@ class MyMessageController {
     }
 
     /**
-     * Modify the value of a message
+     * Modify the value of a message for gamification
      * @return
      */
     @Secured(['ROLE_USER','ROLE_ADMIN'])
@@ -111,6 +94,8 @@ class MyMessageController {
         MyMessage item = MyMessage.get(params.mId as Integer)
         item.value += (params.inc as Integer)
         update(item)
+
+        badgatorService.serviceMethod(item.getUserId()) // check badges
 
         request.withFormat {
             form multipartForm {

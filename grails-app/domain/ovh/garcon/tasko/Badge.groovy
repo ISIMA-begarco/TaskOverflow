@@ -1,11 +1,31 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
+/**
+ * Award for gamification
+ */
 class Badge implements Comparable {
 
+    /**
+     * Name of the badge
+     */
     String label
+    /**
+     * How to get it
+     */
     String description
+    /**
+     * Gain for gamification
+     */
     Integer value
-	
+
+    /**
+     * Users who have this badge
+     */
 	static hasMany = [users: User]
     static belongsTo = User
 	
@@ -17,6 +37,11 @@ class Badge implements Comparable {
         order: 'asc'
     }
 
+    /**
+     * In order to sort badge with a computed value
+     * @param o
+     * @return
+     */
     @Override
     int compareTo(Object o) {
         int a = users != null ? users.size() : 0

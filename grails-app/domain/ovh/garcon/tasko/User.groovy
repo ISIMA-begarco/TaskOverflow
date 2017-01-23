@@ -1,27 +1,72 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+/**
+ * Class to represent users
+ */
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
 class User implements Serializable {
 
+    /**
+     * Serial UID
+     */
 	private static final long serialVersionUID = 1
 
+    /**
+     * Definition for security service
+     */
 	transient springSecurityService
 
+    /**
+     * Name of the user
+     */
 	String username
-	String password
-	boolean enabled = true
-	boolean accountExpired
+
+    /**
+     * Password of the user
+     */
+    String password
+
+    /**
+     * Define if the account is activated
+     */
+    boolean enabled = true
+
+    /**
+     * Define if the account has expired
+     */
+    boolean accountExpired
+
+    /**
+     * Define if the account is locked
+     */
 	boolean accountLocked
+
+    /**
+     * Define if the password has expired
+     */
 	boolean passwordExpired
 
 	static hasMany = [messages: MyMessage, badges: Badge, questions: Question]
+
+    /**
+     * Questions asked by this user
+     */
     Set<Question> questions
     static hasOne = [profil: Profile]
 
+    /**
+     * Get security roles of the user
+     * @return
+     */
 	Set<Role> getAuthorities() {
 		UserRole.findAllByUser(this)*.role
 	}
@@ -36,10 +81,17 @@ class User implements Serializable {
 		}
 	}
 
+    /**
+     * Secure the password storage
+     */
 	protected void encodePassword() {
 		password = springSecurityService?.passwordEncoder ? springSecurityService.encodePassword(password) : password
 	}
 
+    /**
+     * Compute the reputation of the user
+     * @return reputation as integer
+     */
 	Integer getReputation() {
 		Integer rep = 0
 		for(MyMessage m : messages)
@@ -49,6 +101,10 @@ class User implements Serializable {
 		return rep
 	}
 
+    /**
+     * Get the list of questions sorted by reputation
+     * @return Set of Questions
+     */
     Set<Question> getQuestions() {
         return questions?.sort{it.getValue()}?.reverse(true)
     }

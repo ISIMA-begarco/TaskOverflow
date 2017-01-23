@@ -26,6 +26,7 @@
             </div>
             <div class="col-xs-9 text-justify">${a.content}</div>
             <sec:ifLoggedIn>
+                <div class="col-xs-12"><br/></div>
                 <div class="col-xs-12 text-justify coms"><g:link controller="comMessage" action="create" params="['questionId':a.question.id,'messageId':a.id]"><g:message code="message.addcom"/></g:link></div>
             </sec:ifLoggedIn>
             <g:each in="${a.coms}" var="c">
@@ -40,6 +41,7 @@
             </g:if>
         </div>
         <div class="text-right col-xs-6">
+            <img class="small-profil-image" src="${a.user.profil.image != "0" ? a.user.profil.image : resource(dir: 'images', file: 'user.png')}" />
             <g:link controller="user" action="show" id="${a.user.id}">${a.user.username}</g:link>, ${a.date.format('dd/MM/yyyy HH:mm')}
         </div>
 

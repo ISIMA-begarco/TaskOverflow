@@ -1,31 +1,30 @@
 package ovh.garcon.tasko
 
+/**
+ * @author Benoît Garçon
+ * @date Jan-2017
+ */
+
 import grails.plugin.springsecurity.annotation.Secured
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
+import ovh.garcon.tasko.BadgatorService
 
+/**
+ * Manage answers
+ */
 @Transactional(readOnly = true)
 class AnswerMessageController {
 
+    def badgatorService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-/**
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond AnswerMessage.list(params), model:[answerMessageCount: AnswerMessage.count()]
-    }
 
-    def show(AnswerMessage answerMessage) {
-        respond answerMessage
-    }
-
-    def create() {
-        respond new AnswerMessage(params)
-    }
-**/
     @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     @Transactional
     def save(AnswerMessage answerMessage) {
+
         if (answerMessage == null) {
             transactionStatus.setRollbackOnly()
             notFound()
@@ -39,6 +38,8 @@ class AnswerMessageController {
         }
 
         answerMessage.save flush:true
+
+        badgatorService.serviceMethod(answerMessage.getUserId()) // check badges
 
         request.withFormat {
             form multipartForm {
@@ -79,27 +80,7 @@ class AnswerMessageController {
             '*'{ respond answerMessage, [status: OK] }
         }
     }
-/**
-    @Transactional
-    def delete(AnswerMessage answerMessage) {
 
-        if (answerMessage == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        answerMessage.delete flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'answerMessage.label', default: 'AnswerMessage'), answerMessage.id])
-                redirect action:"index", method:"GET"
-            }
-            '*'{ render status: NO_CONTENT }
-        }
-    }
-**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -110,6 +91,10 @@ class AnswerMessageController {
         }
     }
 
+    /**
+     * Add a new answer
+     * @return
+     */
     @Secured(['ROLE_USER','ROLE_ADMIN'])
     @Transactional
     def add(){
