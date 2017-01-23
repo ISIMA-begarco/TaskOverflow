@@ -5,7 +5,7 @@
         <g:set var="entityName" value="${message(code: 'comMessage.label', default: 'ComMessage')}" />
         <title><g:message code="other.new" /></title>
     </head>
-    <body class="container-fluid">${questionId}
+    <body class="container-fluid">
     <h1 class="col-sm-offset-2 page-title"><g:link controller="question" action="show" id="${params.questionId}"><g:message code="other.back"/></g:link> > <g:message code="other.new"/> </h1>
     <div class="jumbotron col-sm-offset-2 col-xs-12 col-sm-8 form-group">
         <g:form controller="comMessage" action="add" method="post">
@@ -18,7 +18,7 @@
             </div>
             <br/>
             <div class="row text-center">
-                <g:submitButton name="add" value="${g.message(code:'other.new')}" />
+                <g:submitButton name="add" value="${g.message(code:'other.send')}" />
             </div>
         </g:form>
     </div>

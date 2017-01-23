@@ -1,5 +1,6 @@
-<div class="jumbotron">
-    <div class="row">
+<div class="jumbotron col-xs-12">
+    <div class="col-sm-offset-2 col-sm-8 col-xs-offset-1 col-xs-10">
+        <div class="row">
         <div class="col-xs-4">
             <g:if test="${p.image!="0"}">
                 <img class="profil-image" src="${p.image}" />
@@ -28,6 +29,7 @@
                 <g:message code="other.unknown"/>
             </g:if>
             </h4>
+        </div>
         </div>
     </div>
 </div>

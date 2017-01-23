@@ -1,5 +1,7 @@
 package ovh.garcon.tasko
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -8,7 +10,7 @@ class ProfileController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
+/**    def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Profile.list(params), model:[profileCount: Profile.count()]
     }
@@ -16,11 +18,12 @@ class ProfileController {
     def show(Profile profile) {
         respond profile
     }
-
+**/
+    /**
     def create() {
         respond new Profile(params)
     }
-
+**/
     @Transactional
     def save(Profile profile) {
         if (profile == null) {
@@ -40,12 +43,13 @@ class ProfileController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id])
-                redirect profile
+                redirect controller: "user", action: "show", id: profile.user.id
             }
             '*' { respond profile, [status: CREATED] }
         }
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def edit(Profile profile) {
         respond profile
     }
@@ -69,12 +73,12 @@ class ProfileController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'profile.label', default: 'Profile'), profile.id])
-                redirect profile
+                redirect controller: "user", action: "show", id: profile.user.id
             }
             '*'{ respond profile, [status: OK] }
         }
     }
-
+/**
     @Transactional
     def delete(Profile profile) {
 
@@ -94,7 +98,7 @@ class ProfileController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {

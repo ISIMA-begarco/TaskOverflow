@@ -10,4 +10,9 @@ class Tag {
         questions nullable: true
         label unique: true
     }
+
+    @Override
+    String toString() {
+        return (label ?: "")
+    }
 }

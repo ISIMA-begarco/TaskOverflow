@@ -16,11 +16,11 @@ class TagController {
     def show(Tag tag) {
         respond tag
     }
-
+/**
     def create() {
         respond new Tag(params)
     }
-
+**/
     @Transactional
     def save(Tag tag) {
         if (tag == null) {
@@ -45,11 +45,11 @@ class TagController {
             '*' { respond tag, [status: CREATED] }
         }
     }
-
+/**
     def edit(Tag tag) {
         respond tag
     }
-
+**/
     @Transactional
     def update(Tag tag) {
         if (tag == null) {
@@ -74,7 +74,7 @@ class TagController {
             '*'{ respond tag, [status: OK] }
         }
     }
-
+/**
     @Transactional
     def delete(Tag tag) {
 
@@ -94,7 +94,7 @@ class TagController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {

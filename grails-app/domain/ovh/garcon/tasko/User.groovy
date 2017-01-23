@@ -44,8 +44,6 @@ class User implements Serializable {
 		Integer rep = 0
 		for(MyMessage m : messages)
 			rep += m.getValue()
-		for(Question m : questions)
-			rep += m.getValue()
 		for(Badge m : badges)
 			rep += m.getValue()
 		return rep
@@ -58,12 +56,16 @@ class User implements Serializable {
 	static transients = ['springSecurityService']
 
 	static constraints = {
+        username blank: false, unique: true
 		password blank: false, password: true
-		username blank: false, unique: true
-		messages nullable: true
-		badges nullable: true
-		questions nullable: true
-		profil nullable: true
+		messages nullable: true, display: false, editable: false
+		badges nullable: true, display: false, editable: false
+		questions nullable: true, display: false, editable: false
+		profil nullable: true, display: false, editable: false
+		accountExpired display: false, editable: false
+		accountLocked display: false, editable: false
+		passwordExpired display: false, editable: false
+		enabled display: false, editable: false
 	}
 
 	static mapping = {

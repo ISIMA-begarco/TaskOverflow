@@ -9,8 +9,13 @@
 
         <h1 class="text-center page-title">${this.user.username}
             <g:if test="${sec.username()==this.user.username}">
-                <g:link class="edit" action="edit" resource="${this.user}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+                <g:link class="btn btn-default form-inline my-btn" action="edit" resource="${this.user}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
             </g:if>
+            <sec:ifAllGranted roles="ROLE_ADMIN">
+                <g:form class="form-inline" style="display: inline-block" controller="user" action="ban" resource="${this.user}" method="PUT">
+                    <g:submitButton class="btn btn-default form-inline" name="ban" value="${this.user.accountLocked==true?g.message(code:'message.unban'):g.message(code:'message.ban')}" />
+                </g:form>
+            </sec:ifAllGranted>
         </h1>
         <g:render template="/profile/displayProfile" model="['p':this.user.profil]" />
         <div class="row">

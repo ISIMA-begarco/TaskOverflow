@@ -9,7 +9,7 @@
         <section class="row">
             <h1 class="col-sm-offset-1 col-xs-10"><g:message code="home.welcome"/></h1>
 
-            <p class="col-sm-offset-1 col-xs-10"><g:message code="home.presentation"/></p>
+            <p class="col-xs-12 col-sm-offset-1 col-sm-10 text-justify"><g:message code="home.presentation"/></p>
 
             <h1 class="col-sm-offset-2 col-xs-8 page-title"><g:message code="home.nav.questions"/></h1>
             <div class="col-xs-offset-1 col-xs-10">

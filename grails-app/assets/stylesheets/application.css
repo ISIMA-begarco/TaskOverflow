@@ -64,3 +64,8 @@
 .coms {
     border-top: 2px dotted;
 }
+
+.my-btn {
+    display: inline-block;
+    text-decoration: none;
+}

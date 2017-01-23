@@ -1,5 +1,7 @@
 package ovh.garcon.tasko
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -7,7 +9,7 @@ import grails.transaction.Transactional
 class MyMessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
+/**
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond MyMessage.list(params).sort{it.value}, model:[myMessageCount: MyMessage.count()]
@@ -20,7 +22,8 @@ class MyMessageController {
     def create() {
         respond new MyMessage(params)
     }
-
+**/
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     @Transactional
     def save(MyMessage myMessage) {
         if (myMessage == null) {
@@ -46,6 +49,7 @@ class MyMessageController {
         }
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def edit(MyMessage myMessage) {
         respond myMessage
     }
@@ -65,16 +69,8 @@ class MyMessageController {
         }
 
         myMessage.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'myMessage.label', default: 'MyMessage'), myMessage.id])
-                redirect myMessage
-            }
-            '*'{ respond myMessage, [status: OK] }
-        }
     }
-
+/**
     @Transactional
     def delete(MyMessage myMessage) {
 
@@ -94,7 +90,7 @@ class MyMessageController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -102,6 +98,26 @@ class MyMessageController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    /**
+     * Modify the value of a message
+     * @return
+     */
+    @Secured(['ROLE_USER','ROLE_ADMIN'])
+    @Transactional
+    def vote(){
+        MyMessage item = MyMessage.get(params.mId as Integer)
+        item.value += (params.inc as Integer)
+        update(item)
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'answerMessage.label', default: 'Question'), item.id])
+                redirect controller:"question", action:"show", id:params.qId, method:"GET"
+            }
+            '*' { respond item, [status: CREATED] }
         }
     }
 }

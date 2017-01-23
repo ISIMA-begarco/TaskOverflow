@@ -1,5 +1,7 @@
 package ovh.garcon.tasko
 
+import grails.plugin.springsecurity.annotation.Secured
+
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -76,7 +78,7 @@ class UserController {
             '*'{ respond user, [status: OK] }
         }
     }
-
+/**
     @Transactional
     def delete(User user) {
 
@@ -96,7 +98,7 @@ class UserController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {
@@ -104,6 +106,34 @@ class UserController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    @Secured(['ROLE_ADMIN'])
+    @Transactional
+    def ban(User user){
+        user.setAccountLocked(!user.getAccountLocked())
+
+        if (user == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        if (user.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond user.errors, view:'show'
+            return
+        }
+
+        user.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'user.label', default: 'User'), user.id])
+                redirect controller: "user", action: "show", id: user.id
+            }
+            '*'{ respond user, [status: OK] }
         }
     }
 }

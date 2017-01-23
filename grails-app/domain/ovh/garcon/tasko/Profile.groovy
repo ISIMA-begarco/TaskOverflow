@@ -10,7 +10,7 @@ class Profile {
     static belongsTo = [user: User]
 
     static constraints = {
-        user nullable: true
+        user nullable: true, display: false, editable: false
         firstname nullable: true
         lastname nullable: true
         email nullable: true

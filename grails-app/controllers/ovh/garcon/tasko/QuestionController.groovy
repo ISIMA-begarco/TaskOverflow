@@ -20,34 +20,50 @@ class QuestionController {
 
     @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def create() {
-        respond new Question(params)
+        respond new Question(question: new QuestionMessage())
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     @Transactional
     def save(Question question) {
-        if (question == null) {
+
+        def qm = new QuestionMessage(
+                user: getAuthenticatedUser(),
+                content: params.content,
+                date: new Date(),
+                value: 0
+        )
+
+        def QUE = new Question(
+                user: getAuthenticatedUser(),
+                question: qm,
+                isSolved: false,
+                tags: question.tags,
+                title: question.title
+        ).save(flush:true)
+
+        if (QUE == null) {
             transactionStatus.setRollbackOnly()
             notFound()
             return
         }
 
-        if (question.hasErrors()) {
+        if (QUE.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond question.errors, view:'create'
+            respond QUE.errors, view:'create'
             return
         }
 
-        question.save flush:true
-
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), question.id])
-                redirect question
+                flash.message = message(code: 'default.created.message', args: [message(code: 'question.label', default: 'Question'), QUE.id])
+                redirect QUE
             }
-            '*' { respond question, [status: CREATED] }
+            '*' { respond QUE, [status: CREATED] }
         }
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def edit(Question question) {
         respond question
     }
@@ -67,14 +83,6 @@ class QuestionController {
         }
 
         question.save flush:true
-
-        request.withFormat {
-            form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'question.label', default: 'Question'), question.id])
-                redirect question
-            }
-            '*'{ respond question, [status: OK] }
-        }
     }
 
     @Transactional
@@ -104,6 +112,35 @@ class QuestionController {
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
+        }
+    }
+
+    @Secured(['ROLE_USER','ROLE_ADMIN'])
+    @Transactional
+    def solve(){
+        Question item = Question.get(params.qId as Integer)
+        item.setIsSolved(true)
+
+        if (item == null) {
+            transactionStatus.setRollbackOnly()
+            notFound()
+            return
+        }
+
+        if (item.hasErrors()) {
+            transactionStatus.setRollbackOnly()
+            respond item.errors, view:'create'
+            return
+        }
+
+        item.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'question.label', default: 'Question'), item.id])
+                redirect controller: "question", action: "show", id: params.qId
+            }
+            '*'{ respond item, [status: OK] }
         }
     }
 }

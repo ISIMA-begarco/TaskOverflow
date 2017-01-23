@@ -19,10 +19,12 @@ class ComMessageController {
         respond comMessage
     }
 **/
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     def create() {
         respond new ComMessage(params)
     }
 
+    @Secured(['ROLE_USER', 'ROLE_ADMIN'])
     @Transactional
     def save(ComMessage comMessage) {
         if (comMessage == null) {

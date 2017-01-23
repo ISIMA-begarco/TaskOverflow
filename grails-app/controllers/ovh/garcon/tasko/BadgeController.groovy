@@ -16,11 +16,11 @@ class BadgeController {
     def show(Badge badge) {
         respond badge
     }
-
+/**
     def create() {
         respond new Badge(params)
     }
-
+**/
     @Transactional
     def save(Badge badge) {
         if (badge == null) {
@@ -45,11 +45,11 @@ class BadgeController {
             '*' { respond badge, [status: CREATED] }
         }
     }
-
+/**
     def edit(Badge badge) {
         respond badge
     }
-
+**/
     @Transactional
     def update(Badge badge) {
         if (badge == null) {
@@ -74,7 +74,7 @@ class BadgeController {
             '*'{ respond badge, [status: OK] }
         }
     }
-
+/**
     @Transactional
     def delete(Badge badge) {
 
@@ -94,7 +94,7 @@ class BadgeController {
             '*'{ render status: NO_CONTENT }
         }
     }
-
+**/
     protected void notFound() {
         request.withFormat {
             form multipartForm {
