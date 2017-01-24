@@ -29,6 +29,7 @@ class BadgatorService {
             for (lab in listLabel)     // loop on badges
                 if(user.badges?.find { b -> b.label == lab } == null && checkEligibilityTo(user, lab))    // check possibility to give one
                     user.addToBadges(Badge.findByLabel(lab)).save(flush: true)      // save
+
     }
 
     /**

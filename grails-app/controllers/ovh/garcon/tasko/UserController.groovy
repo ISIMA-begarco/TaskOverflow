@@ -112,7 +112,6 @@ class UserController {
     @Secured(['ROLE_ADMIN'])
     @Transactional
     def ban(User user){
-        user.setAccountLocked(!user.getAccountLocked())
 
         if (user == null) {
             transactionStatus.setRollbackOnly()
@@ -125,6 +124,8 @@ class UserController {
             respond user.errors, view:'show'
             return
         }
+
+        user.setAccountLocked(!user.getAccountLocked())
 
         user.save flush:true
 

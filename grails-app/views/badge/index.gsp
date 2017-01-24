@@ -7,7 +7,7 @@
     </head>
     <body class="container-fluid">
         <h1 class="col-sm-offset-2 page-title"><g:message code="home.nav.badges"/></h1>
-        <g:each in="${ badgeList }" var="b">
+        <g:each in="${ badgeList.reverse(true) }" var="b">
             <g:render template="/badge/displayBadge" model="['b':b]" />
         </g:each>
     </body>

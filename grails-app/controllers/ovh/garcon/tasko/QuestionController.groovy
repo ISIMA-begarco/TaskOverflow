@@ -41,15 +41,17 @@ class QuestionController {
     @Transactional
     def save(Question question) {
 
+        def user = User.findByUsername(params.username)
+
         def qm = new QuestionMessage(
-                user: getAuthenticatedUser(),
+                user: user,
                 content: params.content,
                 date: new Date(),
                 value: 0
         )
 
         def QUE = new Question(
-                user: getAuthenticatedUser(),
+                user: user,
                 question: qm,
                 isSolved: false,
                 tags: question.tags,
@@ -57,18 +59,6 @@ class QuestionController {
         ).save(flush:true)
 
         badgatorService.serviceMethod(QUE.getUserId()) // check badges
-
-        if (QUE == null) {
-            transactionStatus.setRollbackOnly()
-            notFound()
-            return
-        }
-
-        if (QUE.hasErrors()) {
-            transactionStatus.setRollbackOnly()
-            respond QUE.errors, view:'create'
-            return
-        }
 
         request.withFormat {
             form multipartForm {

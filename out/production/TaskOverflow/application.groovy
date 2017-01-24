@@ -1,8 +1,8 @@
 
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.successHandler.alwaysUseDefault = true
-grails.plugins.springsecurity.successHandler.defaultTargetUrl = '/'
+grails.plugin.springsecurity.successHandler.alwaysUseDefault = true
+grails.plugin.springsecurity.successHandler.defaultTargetUrl = '/'
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'ovh.garcon.tasko.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'ovh.garcon.tasko.UserRole'
 grails.plugin.springsecurity.authority.className = 'ovh.garcon.tasko.Role'

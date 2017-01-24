@@ -46,7 +46,7 @@ class Badge implements Comparable {
     int compareTo(Object o) {
         int a = users != null ? users.size() : 0
         int b = ((Badge)o).getUsers() != null ? ((Badge)o).getUsers().size() : 0
-        return a < b
+        return a < b ? -1 : a > b ? 1 : 0
     }
 
 }

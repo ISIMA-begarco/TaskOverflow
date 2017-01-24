@@ -26,10 +26,14 @@
                     </f:field>
 
                     <f:field property="tags" bean="question" class="form-control"/>
+                    <div style="display: none">
+                        <f:field property="isSolved" value="false" bean="question" class="hiddenField"/>
+                    </div>
                     <f:field property="question.content" bean="question" class="form-control">
                         <g:textArea name="content" class="form-control" style="height: 200px"/>
                     </f:field>
                     <g:hiddenField name="mycontent" value="${content}"/>
+                    <g:hiddenField name="username" value="${sec.username()}"/>
 
                 </fieldset>
                 <fieldset class="text-center">

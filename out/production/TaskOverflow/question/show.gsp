@@ -36,7 +36,7 @@
                         <g:hiddenField name="uId" value="${sec.username()}" />
                         <div class="row">
                             <label for="content"><g:message code="message.answer"/></label>
-                            <g:textArea class="form-control" name="content" value="" />
+                            <g:textArea style="height: 100px;" class="form-control" name="content" value="" />
                         </div>
                         <br/>
                         <div class="row text-center">

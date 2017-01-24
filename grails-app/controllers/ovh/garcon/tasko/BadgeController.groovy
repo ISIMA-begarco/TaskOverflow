@@ -35,7 +35,7 @@ class BadgeController {
 
         if (badge.hasErrors()) {
             transactionStatus.setRollbackOnly()
-            respond badge.errors, view:'create'
+            respond badge.errors, view:'index'
             return
         }
 
